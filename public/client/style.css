@@ -9,6 +9,11 @@ body {
   font-family: sans-serif;
 }
 
+.app-container {
+  max-width: 1200px;
+  margin: auto;
+  color: #370c6f;
+}
 .product-list {
   display: flex;
   flex-wrap: wrap;
@@ -26,7 +31,6 @@ body {
   border-radius: 3px;
   cursor: pointer;
   user-select: none;
-  color: #370c6f;
   overflow: hidden;
 }
 .product__container:hover {

@@ -72,5 +72,9 @@ const products = [
 ];
 
 const App = () => {
-  return <ProductList products={products} />;
+  return (
+    <div className="app-container">
+      <ProductList products={products} />;
+    </div>
+  );
 };
