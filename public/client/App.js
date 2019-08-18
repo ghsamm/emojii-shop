@@ -8,12 +8,16 @@ const App = () => {
 
   const sortByOption = sortByOptions[activeSortByOptionId];
 
+  const incrementPageNumber = () => {
+    setPageNumber(pageNumber => pageNumber + 1);
+  };
+
   const changeSortByOptionAndResetPageNumber = sortByOptionId => {
     setActiveSortByOptionId(sortByOptionId);
     setPageNumber(1);
   };
   const concatProducts = newProducts => {
-    setProducts(products.concat(newProducts));
+    setProducts(products => products.concat(newProducts));
   };
   const fetchProducts = () => {
     setIsLoading(true);
@@ -42,15 +46,14 @@ const App = () => {
         activeSortByOptionId={activeSortByOptionId}
         onClickOption={changeSortByOptionAndResetPageNumber}
       />
-      <ProductList products={products} />
-      {isLoading && <Loading />}
-      <input
-        type="button"
-        value="more"
-        onClick={() => {
-          setPageNumber(pageNumber + 1);
+      <ProductList
+        products={products}
+        onFetchMore={() => {
+          if (isLoading) return;
+          incrementPageNumber();
         }}
       />
+      <Loading isLoading={isLoading} />
     </div>
   );
 };

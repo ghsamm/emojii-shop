@@ -13,7 +13,6 @@ body {
   max-width: 1200px;
   margin: auto;
   color: #370c6f;
-  padding-bottom: 50px;
 }
 .header {
   display: flex;

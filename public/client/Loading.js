@@ -1,3 +1,10 @@
-const Loading = () => {
-  return <div className="loading">Loading...</div>;
+const Loading = ({ isLoading }) => {
+  return (
+    <div
+      className="loading"
+      style={{ visibility: isLoading ? "visible" : "hidden" }}
+    >
+      Loading...
+    </div>
+  );
 };
