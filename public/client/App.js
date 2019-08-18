@@ -74,6 +74,7 @@ const products = [
 const App = () => {
   return (
     <div className="app-container">
+      <Header />
       <ProductList products={products} />;
     </div>
   );
