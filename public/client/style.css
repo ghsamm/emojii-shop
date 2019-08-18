@@ -99,6 +99,9 @@ body {
   animation: preview-intro 250ms, preview 1000ms 250ms infinite;
   animation-timing-function: ease, cubic-bezier(0.45, 0.05, 0.55, 0.95);
 }
+.product__face {
+  white-space: nowrap;
+}
 .product__details {
   font-size: 12px;
   display: flex;
