@@ -1,8 +1,9 @@
+const API_URL = "http://localhost:3000/api";
 const sortByOptions = { 0: "", 1: "id", 2: "price", 3: "size" };
 
 const App = () => {
   const [activeSortByOptionId, setActiveSortByOptionId] = useState(0);
-  const [products, setProducts] = useState([]);
+  const [productsPerPage, setProductsPerPage] = useState({});
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,27 +17,50 @@ const App = () => {
     setActiveSortByOptionId(sortByOptionId);
     setPageNumber(1);
   };
-  const concatProducts = newProducts => {
-    setProducts(products => products.concat(newProducts));
+  const emptyProducts = () => {
+    setProductsPerPage({});
   };
-  const fetchProducts = () => {
-    setIsLoading(true);
-    if (pageNumber === 1) {
-      setProducts([]);
-    }
-    fetch(
-      `http://localhost:3000/api/products?_page=${pageNumber}${sortByOption &&
+  const getProductsPerPage = pageNumber => {
+    return productsPerPage[pageNumber] || [];
+  };
+  const getAllProducts = () => {
+    return Array.from({ length: pageNumber }, (_, i) => i + 1)
+      .map(getProductsPerPage)
+      .reduce((res, pageProducts) => {
+        //
+        // if you are wondering why I am using push instead of concat
+        // read this: https://www.richsnapp.com/blog/2019/06-09-reduce-spread-anti-pattern
+
+        res.push(...pageProducts);
+        return res;
+      }, []);
+  };
+  const addProductsPage = (pageNumber, products) => {
+    setProductsPerPage(productsPerPage => ({
+      ...productsPerPage,
+      [pageNumber]: products
+    }));
+  };
+  const fetchProductsPerPage = pageNumber => {
+    return fetch(
+      `${API_URL}/products?_page=${pageNumber}${sortByOption &&
         "&_sort=" + sortByOption}`
-    )
-      .then(res => res.json())
-      .then(newProducts => {
-        setIsLoading(false);
-        concatProducts(newProducts);
-      });
+    ).then(res => res.json());
   };
 
   useEffect(() => {
-    fetchProducts();
+    setIsLoading(true);
+    if (pageNumber === 1) {
+      emptyProducts();
+      fetchProductsPerPage(pageNumber).then(newProducts => {
+        setIsLoading(false);
+        addProductsPage(pageNumber, newProducts);
+      });
+    }
+    fetchProductsPerPage(pageNumber + 1).then(newProducts => {
+      setIsLoading(false);
+      addProductsPage(pageNumber + 1, newProducts);
+    });
   }, [pageNumber, activeSortByOptionId]);
 
   return (
@@ -47,7 +71,7 @@ const App = () => {
         onClickOption={changeSortByOptionAndResetPageNumber}
       />
       <ProductList
-        products={products}
+        products={getAllProducts()}
         onFetchMore={() => {
           if (isLoading) return;
           incrementPageNumber();
