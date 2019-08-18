@@ -2,10 +2,11 @@
 <html>
   <head>
     <title>Products Grid</title>
+    <link rel="stylesheet" href="client/style.css"></link>
   </head>
   <body>
     <header>
-      <h1>Products Grid</h1>
+      <!-- <h1>Products Grid</h1>
 
       <p>
         Here you're sure to find a bargain on some of the finest ascii available
@@ -20,12 +21,9 @@
             Math.floor(Math.random() * 1000) +
             '"/>'
         );
-      </script>
+      </script> -->
     </header>
 
-    <section class="products">
-      ... products go here ...
-    </section>
     <div id="root"></div>
     <script
       src="https://unpkg.com/babel-standalone@6/babel.min.js"
@@ -39,6 +37,9 @@
       src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
       crossorigin
     ></script>
+    <script src="client/Product.js" type="text/babel"></script>
+    <script src="client/ProductList.js" type="text/babel"></script>
+    <script src="client/App.js" type="text/babel"></script>
     <script src="client/index.js" type="text/babel"></script>
   </body>
 </html>
