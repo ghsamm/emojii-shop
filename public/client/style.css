@@ -58,11 +58,15 @@ body {
 .product__details {
   font-size: 0.9em;
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.product__details-row {
+  display: flex;
 }
 .product__size {
   font-style: italic;
@@ -73,4 +77,9 @@ body {
   padding: 1px 4px;
   font-weight: bold;
   margin-left: 10px;
+}
+.product__date {
+  font-size: 0.8em;
+  font-style: italic;
+  margin-top: 10px;
 }
