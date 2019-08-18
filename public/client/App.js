@@ -17,6 +17,9 @@ const App = () => {
   };
   const fetchProducts = () => {
     setIsLoading(true);
+    if (pageNumber === 1) {
+      setProducts([]);
+    }
     fetch(
       `http://localhost:3000/api/products?_page=${pageNumber}${sortByOption &&
         "&_sort=" + sortByOption}`
@@ -24,11 +27,7 @@ const App = () => {
       .then(res => res.json())
       .then(newProducts => {
         setIsLoading(false);
-        if (pageNumber === 1) {
-          setProducts(newProducts);
-        } else {
-          concatProducts(newProducts);
-        }
+        concatProducts(newProducts);
       });
   };
 
