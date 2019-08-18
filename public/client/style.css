@@ -27,7 +27,31 @@ body {
   display: flex;
   align-items: center;
 }
-.header__sort {
+.sort-by {
+  position: relative;
+  z-index: 99;
+}
+.sort-by__button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: inherit;
+  font-size: inherit;
+  padding: 10px 15px;
+  border-radius: 3px;
+  text-align: left;
+  cursor: pointer;
+}
+.sort-by__button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.sort-by__options {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
 }
 .product-list {
   display: flex;

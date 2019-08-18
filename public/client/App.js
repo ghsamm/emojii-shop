@@ -71,10 +71,17 @@ const products = [
   }
 ];
 
+const sortByOptions = { 0: "", 1: "id", 2: "price", 3: "size" };
+
 const App = () => {
+  const [activeSortByOptionId, setActiveSortByOptionId] = useState("");
   return (
     <div className="app-container">
-      <Header />
+      <Header
+        sortByOptions={sortByOptions}
+        activeSortByOptionId={activeSortByOptionId}
+        onClickOption={setActiveSortByOptionId}
+      />
       <ProductList products={products} />;
     </div>
   );
