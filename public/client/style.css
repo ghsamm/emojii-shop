@@ -99,8 +99,12 @@ body {
   animation: preview-intro 250ms, preview 1000ms 250ms infinite;
   animation-timing-function: ease, cubic-bezier(0.45, 0.05, 0.55, 0.95);
 }
+.product__container:hover .product__details {
+  opacity: 1;
+}
 .product__face {
   white-space: nowrap;
+  font-weight: bold;
 }
 .product__details {
   font-size: 12px;
@@ -108,6 +112,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 35px;
+  opacity: 0.5;
 }
 .product__details-row {
   display: flex;
