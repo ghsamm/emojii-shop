@@ -1,4 +1,4 @@
-const { useState } = React;
+const { useEffect, useState } = React;
 
 const rootElement = document.querySelector("#root");
 
