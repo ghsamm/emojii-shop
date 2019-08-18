@@ -4,6 +4,8 @@ const App = () => {
   const [activeSortByOptionId, setActiveSortByOptionId] = useState(0);
   const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+
   const sortByOption = sortByOptions[activeSortByOptionId];
 
   const changeSortByOptionAndResetPageNumber = sortByOptionId => {
@@ -14,12 +16,14 @@ const App = () => {
     setProducts(products.concat(newProducts));
   };
   const fetchProducts = () => {
+    setIsLoading(true);
     fetch(
       `http://localhost:3000/api/products?_page=${pageNumber}${sortByOption &&
         "&_sort=" + sortByOption}`
     )
       .then(res => res.json())
       .then(newProducts => {
+        setIsLoading(false);
         if (pageNumber === 1) {
           setProducts(newProducts);
         } else {
@@ -40,6 +44,7 @@ const App = () => {
         onClickOption={changeSortByOptionAndResetPageNumber}
       />
       <ProductList products={products} />
+      {isLoading && <Loading />}
       <input
         type="button"
         value="more"

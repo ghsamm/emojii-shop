@@ -13,6 +13,7 @@ body {
   max-width: 1200px;
   margin: auto;
   color: #370c6f;
+  padding-bottom: 50px;
 }
 .header {
   display: flex;
@@ -123,4 +124,21 @@ body {
 }
 .product__date {
   margin-top: 10px;
+}
+@keyframes loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.loading {
+  text-align: center;
+  margin: 40px;
+  font-size: 28px;
+  animation: loading 2s infinite;
 }
