@@ -4,10 +4,10 @@ const SortBy = ({ options, activeOpionId, onClickOption }) => {
     setAreOptionsVisible(false);
   };
   const toggleOptions = () => {
-    setAreOptionsVisible(!areOpionsVisible);
+    setAreOptionsVisible(areOpionsVisible => !areOpionsVisible);
   };
   return (
-    <div className="sort-by" onClick={toggleOptions}>
+    <div className="sort-by">
       <input
         type="button"
         className="sort-by__button"
@@ -17,6 +17,7 @@ const SortBy = ({ options, activeOpionId, onClickOption }) => {
             : "transparent"
         }}
         value={`sort by ${options[activeOpionId] || ""}▾`}
+        onClick={toggleOptions}
       />
       {areOpionsVisible && (
         <div className="sort-by__options">
