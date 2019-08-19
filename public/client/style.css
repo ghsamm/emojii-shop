@@ -146,3 +146,8 @@ body {
   font-size: 28px;
   animation: loading 2s infinite;
 }
+.end-of-catalogue {
+  text-align: center;
+  margin: 40px;
+  font-size: 28px;
+}

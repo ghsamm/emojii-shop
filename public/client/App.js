@@ -6,6 +6,7 @@ const App = () => {
   const [productsPerPage, setProductsPerPage] = useState({});
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEndReached, setIsEndReached] = useState(false);
 
   const sortByOption = sortByOptions[activeSortByOptionId];
 
@@ -59,6 +60,9 @@ const App = () => {
     }
     fetchProductsPerPage(pageNumber + 1).then(newProducts => {
       setIsLoading(false);
+      if (newProducts.length === 0) {
+        setIsEndReached(true);
+      }
       addProductsPage(pageNumber + 1, newProducts);
     });
   }, [pageNumber, activeSortByOptionId]);
@@ -73,11 +77,14 @@ const App = () => {
       <ProductList
         products={getAllProducts()}
         onFetchMore={() => {
-          if (isLoading) return;
+          if (isLoading || isEndReached) {
+            return;
+          }
           incrementPageNumber();
         }}
       />
       <Loading isLoading={isLoading} />
+      {isEndReached && <EndOfCatalogue />}
     </div>
   );
 };
