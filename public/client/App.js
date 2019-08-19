@@ -4,6 +4,7 @@ const sortByOptions = { 0: "", 1: "id", 2: "price", 3: "size" };
 const App = () => {
   const [activeSortByOptionId, setActiveSortByOptionId] = useState(0);
   const [productsPerPage, setProductsPerPage] = useState({});
+  const [products, setProducts] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isEndReached, setIsEndReached] = useState(false);
@@ -25,18 +26,6 @@ const App = () => {
   const getProductsPerPage = pageNumber => {
     return productsPerPage[pageNumber] || [];
   };
-  const getAllProducts = () => {
-    return Array.from({ length: pageNumber }, (_, i) => i + 1)
-      .map(getProductsPerPage)
-      .reduce((res, pageProducts) => {
-        //
-        // if you are wondering why I am using push instead of concat
-        // read this: https://www.richsnapp.com/blog/2019/06-09-reduce-spread-anti-pattern
-
-        res.push(...pageProducts);
-        return res;
-      }, []);
-  };
   const addProductsPage = (pageNumber, products) => {
     setProductsPerPage(productsPerPage => ({
       ...productsPerPage,
@@ -50,6 +39,20 @@ const App = () => {
     ).then(res => res.json());
   };
 
+  useEffect(() => {
+    setProducts(
+      Array.from({ length: pageNumber }, (_, i) => i + 1)
+        .map(getProductsPerPage)
+        .reduce((res, pageProducts) => {
+          //
+          // if you are wondering why I am using push instead of concat
+          // read this: https://www.richsnapp.com/blog/2019/06-09-reduce-spread-anti-pattern
+
+          res.push(...pageProducts);
+          return res;
+        }, [])
+    );
+  }, [productsPerPage]);
   useEffect(() => {
     setIsLoading(true);
     if (pageNumber === 1) {
@@ -76,7 +79,7 @@ const App = () => {
         onClickOption={changeSortByOptionAndResetPage}
       />
       <ProductList
-        products={getAllProducts()}
+        products={products}
         onFetchMore={() => {
           if (isLoading || isEndReached) {
             return;

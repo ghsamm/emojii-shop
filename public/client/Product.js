@@ -64,7 +64,6 @@ const renderFullDate = dateAsString => {
 
 const Product = React.memo(
   ({ showAd, product: { id, size, price, face, date } }) => {
-    console.log("id " + id + " re-rendered");
     return (
       <Fragment>
         {showAd && (
