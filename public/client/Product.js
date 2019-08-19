@@ -62,23 +62,40 @@ const renderFullDate = dateAsString => {
   return `${dayOfMonth}-${month}-${year} at ${hour}:${minute}`;
 };
 
-const Product = ({ product: { id, size, price, face, date } }) => {
-  return (
-    <div className="product__container">
-      <div className="product__face" style={{ fontSize: size }}>
-        {face}
-      </div>
-      <div className="product__details">
-        <div className="product__details-row">
-          <div className="product__size">{renderSize(size)}</div>
-          <div className="product__price">{renderPrice(price)}</div>
-        </div>
-        <div className="product__details-row">
-          <div className="product__date" title={renderFullDate(date)}>
-            {renderHumanizedDate(date)}
+const Product = React.memo(
+  ({ showAd, product: { id, size, price, face, date } }) => {
+    console.log("id " + id + " re-rendered");
+    return (
+      <Fragment>
+        {showAd && (
+          <div className="product__container">
+            <div
+              className="ad"
+              style={{
+                backgroundImage: `url(/ads/?r=${Math.floor(
+                  Math.random() * 1000
+                )})`
+              }}
+            />
+          </div>
+        )}
+        <div className="product__container">
+          <div className="product__face" style={{ fontSize: size }}>
+            {face}
+          </div>
+          <div className="product__details">
+            <div className="product__details-row">
+              <div className="product__size">{renderSize(size)}</div>
+              <div className="product__price">{renderPrice(price)}</div>
+            </div>
+            <div className="product__details-row">
+              <div className="product__date" title={renderFullDate(date)}>
+                {renderHumanizedDate(date)}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
+      </Fragment>
+    );
+  }
+);

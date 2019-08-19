@@ -14,9 +14,10 @@ const App = () => {
     setPageNumber(pageNumber => pageNumber + 1);
   };
 
-  const changeSortByOptionAndResetPageNumber = sortByOptionId => {
+  const changeSortByOptionAndResetPage = sortByOptionId => {
     setActiveSortByOptionId(sortByOptionId);
     setPageNumber(1);
+    setIsEndReached(false);
   };
   const emptyProducts = () => {
     setProductsPerPage({});
@@ -72,7 +73,7 @@ const App = () => {
       <Header
         sortByOptions={sortByOptions}
         activeSortByOptionId={activeSortByOptionId}
-        onClickOption={changeSortByOptionAndResetPageNumber}
+        onClickOption={changeSortByOptionAndResetPage}
       />
       <ProductList
         products={getAllProducts()}

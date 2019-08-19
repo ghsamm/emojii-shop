@@ -15,8 +15,12 @@ const ProductList = ({ products, onFetchMore }) => {
 
   return (
     <section className="product-list">
-      {products.map(product => (
-        <Product key={product.id} product={product} />
+      {products.map((product, i) => (
+        <Product
+          key={product.id}
+          product={product}
+          showAd={i !== 0 && i % 20 === 0}
+        />
       ))}
     </section>
   );

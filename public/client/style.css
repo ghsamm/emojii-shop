@@ -72,6 +72,7 @@ body {
   cursor: pointer;
   user-select: none;
   overflow: hidden;
+  margin: 5px;
 }
 .product__container:hover {
   background-color: rgba(0, 0, 0, 0.05);
@@ -150,4 +151,15 @@ body {
   text-align: center;
   margin: 40px;
   font-size: 28px;
+}
+.ad {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0.05);
 }
