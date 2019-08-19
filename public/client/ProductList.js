@@ -1,10 +1,14 @@
 const ProductList = ({ products, onFetchMore }) => {
   const handleScroll = () => {
     if (
-      window.innerHeight + document.documentElement.scrollTop !==
-      document.documentElement.offsetHeight
-    )
+      Math.abs(
+        window.innerHeight +
+          document.documentElement.scrollTop -
+          document.documentElement.offsetHeight
+      ) > 1
+    ) {
       return;
+    }
     onFetchMore();
   };
 
