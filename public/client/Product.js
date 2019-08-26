@@ -63,17 +63,26 @@ const renderFullDate = dateAsString => {
 };
 
 const Product = React.memo(
-  ({ showAd, product: { id, size, price, face, date } }) => {
+  ({
+    shouldShowAd,
+    requestAdNumber,
+    product: { id, size, price, face, date }
+  }) => {
+    const [adNumber, setAdNumber] = useState(-1);
+    useEffect(() => {
+      if (!shouldShowAd) {
+        return;
+      }
+      setAdNumber(requestAdNumber());
+    }, []);
     return (
       <Fragment>
-        {showAd && (
+        {shouldShowAd && adNumber > -1 && (
           <div className="product__container">
             <div
               className="ad"
               style={{
-                backgroundImage: `url(/ads/?r=${Math.floor(
-                  Math.random() * 1000
-                )})`
+                backgroundImage: `url(/ads/?r=${adNumber})`
               }}
             />
           </div>
