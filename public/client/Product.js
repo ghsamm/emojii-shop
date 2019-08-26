@@ -65,16 +65,32 @@ const renderFullDate = dateAsString => {
 const Product = React.memo(
   ({
     shouldShowAd,
-    requestAdNumber,
+    onRequestAdNumber,
     product: { id, size, price, face, date }
   }) => {
     const [adNumber, setAdNumber] = useState(-1);
+    const containerEl = useRef(null);
     useEffect(() => {
       if (!shouldShowAd) {
         return;
       }
-      setAdNumber(requestAdNumber());
+      setAdNumber(onRequestAdNumber());
     }, []);
+
+    // animation
+    useEffect(() => {
+      const animationsCount = 7;
+      const animationIndex = 1 + Math.floor(Math.random() * animationsCount);
+      containerEl.current.style.setProperty(
+        "--face-animation",
+        `preview${animationIndex}`
+      );
+      containerEl.current.style.setProperty(
+        "--face-animation-intro",
+        `preview${animationIndex}-intro`
+      );
+    }, []);
+
     return (
       <Fragment>
         {shouldShowAd && adNumber > -1 && (
@@ -87,7 +103,7 @@ const Product = React.memo(
             />
           </div>
         )}
-        <div className="product__container">
+        <div className="product__container" ref={containerEl}>
           <div className="product__face" style={{ fontSize: size }}>
             {face}
           </div>

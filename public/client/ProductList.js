@@ -104,7 +104,7 @@ const ProductList = React.memo(({ products, onFetchMore }) => {
           key={product.id}
           product={product}
           shouldShowAd={i !== 0 && i % 20 == 0}
-          requestAdNumber={() => {
+          onRequestAdNumber={() => {
             const adNumber = nextAdNumber;
             incrementNextAdNumber();
             return adNumber;
